@@ -6,7 +6,7 @@ on:
       - staging
 
 jobs:
-  build-and-run:
+  build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -35,25 +35,18 @@ jobs:
             docker logs app-container
             exit 1
           fi
-  
-  deploy-to-netlify:
-    runs-on: ubuntu-latest
-    needs: build-and-run
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      
-      - name: Install dependencies
-        run: npm i
-      
-      - name: Build for production
-        run: npm run build
+      - name: Copy build artifacts from container
+        run: |
+          # Create a directory to hold the build artifacts
+          mkdir -p build
+          
+          # Copy the application files from the container
+          # Adjust the source path based on your Dockerfile's WORKDIR
+          docker cp app-container:/app/. ./build/
+          
+          # List the copied files for verification
+          ls -la ./build/
       
       - name: Deploy to Netlify
         uses: netlify/actions/cli@master
