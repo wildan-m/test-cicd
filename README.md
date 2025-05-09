@@ -1,7 +1,7 @@
 # CI/CD Project
 
 ## Overview
-This project demonstrates a CI/CD pipeline using GitHub Actions to automate the build and deployment of a Dockerized application. The application is built using a Dockerfile and managed with Docker Compose. The CI/CD pipeline deploys the application to Netlify.
+This project demonstrates a CI/CD pipeline using GitHub Actions to automate the build and deployment of a Dockerized application. The application is built using a Dockerfile and managed with Docker Compose.
 
 ## Project Structure
 ```
@@ -53,31 +53,11 @@ The project includes a GitHub Actions workflow that automatically builds and dep
    - Builds the Docker image using the development Dockerfile
    - Runs the container to verify it starts correctly
    - Extracts build artifacts from the container
-   - Deploys the application to Netlify
-
-3. **Netlify Deployment**
-   - The workflow requires two secrets to be configured in your GitHub repository:
-     - `NETLIFY_AUTH_TOKEN`: Your Netlify authentication token
-     - `NETLIFY_SITE_ID`: The ID of your Netlify site
-
-## Configuring Netlify Deployment
-
-1. **Create a Netlify Site**
-   - Create an account on Netlify if you don't have one
-   - Create a new site for this project
-
-2. **Set Up GitHub Secrets**
-   - Go to your GitHub repository settings
-   - Navigate to "Secrets and variables" → "Actions"
-   - Add the following secrets:
-     - `NETLIFY_AUTH_TOKEN`: Create from your Netlify account settings
-     - `NETLIFY_SITE_ID`: Found in your Netlify site settings
 
 ## Assumptions
 - Docker and Docker Compose are installed on your machine.
 - The application is designed to run on port 3000.
 - The repository is hosted on GitHub.
-- You have a Netlify account for deployment.
 
 ## License
 This project is licensed under the MIT License.

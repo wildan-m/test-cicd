@@ -6,7 +6,7 @@ on:
       - staging
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
     
     steps:
@@ -35,25 +35,3 @@ jobs:
             docker logs app-container
             exit 1
           fi
-      
-      - name: Copy build artifacts from container
-        run: |
-          # Create a directory to hold the build artifacts
-          mkdir -p build
-          
-          # Copy the application files from the container
-          # Adjust the source path based on your Dockerfile's WORKDIR
-          docker cp app-container:/app/. ./build/
-          
-          # List the copied files for verification
-          ls -la ./build/
-      
-      # Replace the older Netlify action with direct CLI installation
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
-        run: netlify deploy --dir=build --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
