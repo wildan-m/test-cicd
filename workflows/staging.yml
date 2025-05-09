@@ -1,0 +1,37 @@
+name: Staging Deployment
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Build Docker image
+        run: docker build -f Dockerfile.dev -t my-app:staging .
+      
+      - name: Run Docker container
+        run: |
+          docker run -d -p 3000:3000 --name app-container my-app:staging
+          # Wait for the container to start
+          sleep 5
+      
+      - name: Check container logs for startup message
+        run: |
+          # Verify the app started by checking for the startup message
+          if docker logs app-container | grep "App started on port"; then
+            echo "✅ Application started successfully"
+          else
+            echo "❌ Application did not start properly"
+            docker logs app-container
+            exit 1
+          fi
