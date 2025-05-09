@@ -5,15 +5,17 @@ This project demonstrates a CI/CD pipeline using GitHub Actions to automate the 
 
 ## Project Structure
 ```
-ci-cd-project
-├── .github
-│   └── workflows
-│       └── staging.yml       # GitHub Actions workflow for CI/CD
-├── docker-compose.yml         # Defines services for the application
-├── Dockerfile.dev             # Dockerfile for building the development image
-├── src
-│   └── app.js                 # Main application file
-└── README.md                  # Project documentation
+.
+├── .github/
+│   └── workflows/        # GitHub Actions workflows (to be implemented)
+├── docker-compose.yml    # Defines services for the application
+├── Dockerfile.dev        # Dockerfile for building the development image
+├── package.json          # Node.js package configuration
+├── src/
+│   └── app.js            # Main application file
+├── workflows/
+│   └── staging.yml       # CI/CD workflow definition (to be moved to .github/workflows/)
+└── README.md             # Project documentation
 ```
 
 ## Setup Instructions
@@ -21,7 +23,7 @@ ci-cd-project
 1. **Clone the Repository**
    ```bash
    git clone <repository-url>
-   cd ci-cd-project
+   cd test-cicd
    ```
 
 2. **Build the Docker Image**
@@ -40,7 +42,8 @@ ci-cd-project
    The application will be accessible at `http://localhost:3000`.
 
 ## Usage
-- Push changes to the `staging` branch to trigger the CI/CD pipeline defined in `.github/workflows/staging.yml`.
+- Currently, the CI/CD workflow (`staging.yml`) is in the local `workflows` directory and needs to be moved to `.github/workflows/` to be activated on GitHub.
+- Once moved, pushing changes to the `staging` branch will trigger the CI/CD pipeline.
 - The pipeline will check out the repository, build the application, and run the container.
 
 ## Assumptions
